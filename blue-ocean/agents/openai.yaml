@@ -1,0 +1,4 @@
+interface:
+  display_name: "블루오션"
+  short_description: "멀티 에이전트 소프트웨어 개발 운영 관리"
+  default_prompt: "Use $blue-ocean to coordinate this software project from roadmap through QC and final reporting."
