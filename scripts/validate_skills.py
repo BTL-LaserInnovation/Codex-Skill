@@ -35,12 +35,20 @@ def main() -> int:
     else:
         for directory in sorted(path for path in SKILLS.iterdir() if path.is_dir()):
             skill_file = directory / "SKILL.md"
+            korean_file = directory / "SKILL.ko.md"
             if not skill_file.is_file():
                 errors.append(f"{directory.relative_to(ROOT)}: SKILL.md is missing")
                 continue
+            if not korean_file.is_file():
+                errors.append(f"{directory.relative_to(ROOT)}: SKILL.ko.md is missing")
+                continue
             metadata = frontmatter(skill_file.read_text(encoding="utf-8"))
+            korean_metadata = frontmatter(korean_file.read_text(encoding="utf-8"))
             if metadata is None:
                 errors.append(f"{skill_file.relative_to(ROOT)}: invalid YAML frontmatter")
+                continue
+            if korean_metadata is None:
+                errors.append(f"{korean_file.relative_to(ROOT)}: invalid YAML frontmatter")
                 continue
             name = metadata.get("name", "")
             description = metadata.get("description", "")
@@ -50,8 +58,14 @@ def main() -> int:
                 errors.append(f"{skill_file.relative_to(ROOT)}: invalid skill name")
             if not description:
                 errors.append(f"{skill_file.relative_to(ROOT)}: description is required")
+            if korean_metadata.get("name", "") != name:
+                errors.append(f"{korean_file.relative_to(ROOT)}: name must match SKILL.md")
+            if not korean_metadata.get("description", ""):
+                errors.append(f"{korean_file.relative_to(ROOT)}: description is required")
             if "[TODO" in skill_file.read_text(encoding="utf-8"):
                 errors.append(f"{skill_file.relative_to(ROOT)}: unfinished TODO marker")
+            if "[TODO" in korean_file.read_text(encoding="utf-8"):
+                errors.append(f"{korean_file.relative_to(ROOT)}: unfinished TODO marker")
 
     if errors:
         print("Skill validation failed:")

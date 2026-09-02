@@ -4,7 +4,8 @@
 
 ## 저장소 구조
 
-- `skills/<skill-name>/SKILL.md`: 배포 가능한 스킬. 폴더명과 YAML `name`은 같아야 합니다.
+- `skills/<skill-name>/SKILL.md`: 배포 가능한 원문 스킬. 폴더명과 YAML `name`은 같아야 합니다.
+- `skills/<skill-name>/SKILL.ko.md`: 원문과 같은 버전으로 유지하는 한글 번역본입니다.
 - `skills/<skill-name>/agents/openai.yaml`: 필요한 경우에만 두는 UI 메타데이터입니다.
 - `templates/skill-template/`: 새 스킬을 만들 때 복사하는 최소 템플릿입니다.
 - `scripts/validate_skills.py`: 모든 스킬의 기본 구조를 검사합니다.
@@ -13,7 +14,7 @@
 
 1. 저장소를 fork하고 작업 브랜치를 만듭니다.
 2. `templates/skill-template`을 `skills/<소문자-하이픈-이름>`으로 복사합니다.
-3. `SKILL.md`의 YAML 메타데이터와 작업 지침을 작성합니다. 지침에는 역할, 적용 조건, 실제 제약만 담고 일반적인 Codex 사용법은 중복하지 않습니다.
+3. `SKILL.md`의 YAML 메타데이터와 작업 지침을 작성하고, 내용이 동일한 한글 번역본 `SKILL.ko.md`를 함께 작성합니다. 지침에는 역할, 적용 조건, 실제 제약만 담고 일반적인 Codex 사용법은 중복하지 않습니다.
 4. `python scripts/validate_skills.py`를 실행합니다.
 5. Pull Request를 열고, 목적·적용 예시·검증 결과를 작성합니다. 검토가 승인된 뒤에만 `master`에 병합합니다.
 
