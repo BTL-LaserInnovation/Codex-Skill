@@ -49,4 +49,5 @@ Assign one responsible agent per role. An agent may fill more than one role only
 - For C++ and C#, choose the project-native build and test commands when present. Do not introduce a new build system or dependencies without user authorization.
 - QC must distinguish verified defects from suggestions. A release-blocking finding needs evidence, expected versus actual behavior, and a clear owner.
 - A failed QC check is not complete until QC records a passing re-verification or the PM/user accepts a documented exception with its remaining risk.
+- Unless the user requests another language, present roadmap summaries, task plans, GUI-review notes, QC findings, progress reports, and final results in Korean. Keep source code, commands, paths, API names, and other identifiers unchanged, and explain them in Korean where clarification is needed.
 - If a required decision, credential, external service, or acceptance criterion is unavailable, report the blocker to the PM/user with the smallest decision needed to continue.
