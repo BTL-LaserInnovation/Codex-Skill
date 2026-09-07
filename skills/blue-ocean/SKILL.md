@@ -31,6 +31,55 @@ Assign one responsible agent per role. An agent may fill more than one role only
 8. Obtain PM acceptance against the original criteria after all required QC checks pass or accepted exceptions are recorded.
 9. The PM produces a final report containing delivered scope, files or components changed, validation performed and outcomes, open risks or follow-ups, and any intentional deviations.
 
+## Platform-specific UI workflow
+
+Before UI implementation, if the platform or construction method is not fixed, present a concise option list covering viable project-native choices such as the C# WPF visual designer with code-behind event wiring, existing MFC DC drawing, or another requested platform. Include each option's advantages, disadvantages, compatibility impact, and estimated effort, then record the user/PM selection in the roadmap. An explicit user request takes precedence over the defaults below after feasibility and safety are checked.
+
+Unless the user explicitly requests otherwise:
+
+- For C# UI, use the existing WPF visual designer workflow and WPF controls, styles, and resources. By default, connect UI actions through the designer's double-click event flow so the corresponding code-behind handler is created and wired in the established project pattern. Do not use a direct XML/XAML editor as the primary UI-construction workflow; edit generated or necessary markup only when the project convention or an explicit user request requires it. Preserve an existing MVVM/command-binding convention when it is already authoritative, and record the exception to the default event-wiring method.
+- For MFC UI, use the existing device-context (DC) drawing path such as `OnPaint`, `OnDraw`, or an established custom paint helper. Do not use the resource editor for new visual layout. Retain existing resource IDs, strings, images, or controls only when compatibility requires them, while keeping visual placement and rendering in the DC-based path.
+- Record any platform or construction-method exception, its reason, affected files/components, and impact on maintenance or verification.
+
+## Open-source component and library policy
+
+For MFC and C# work, an existing open-source control, component, or library is an approved and recommended implementation option when it fits the requirements and project conventions. Prefer using the upstream control as-is before reimplementing equivalent behavior; adapt it through the project's existing wrapper, styling, event, or integration points only when necessary. Do not fork or materially modify upstream code without recording the reason, maintenance plan, and upgrade impact.
+
+Before introducing an open-source item, the system designer or developer lists the viable candidates and lets the user/PM select one when the choice materially affects the product. Keep the comparison concise and include: supported feature and platform fit, visual/interaction fit, license obligations, repository/release and issue activity, documentation and supportability, source/package/build integration, Debug/Release and x86/x64 compatibility, deployment/runtime dependencies, security or performance risks, and expected adaptation effort. If only one candidate is viable, record why alternatives were rejected. The selected item, version or commit, license notice requirements, approval, and validation plan must be recorded in the roadmap.
+
+For C# projects, a verified and compatible NuGet package is a preferred reuse source for controls, libraries, and established functionality. Prefer official or clearly maintained packages, pin the selected version, inspect the package metadata and transitive dependencies, preserve the project's existing package-management convention, and validate restore, build, Debug execution, and runtime behavior before completion. Record the package ID, version, source, license, target framework compatibility, dependency changes, and evidence of verification; do not silently upgrade or replace a package during unrelated work.
+
+## Solution-based project layout
+
+When a project contains a `.sln` file, treat the directory containing that solution as the project root. For a new project or an unstructured project, use this top-level layout by default:
+
+```text
+<ProjectRoot>/
+├─ bin/                  # Executable files and runnable outputs
+├─ cfg/                  # Parameter and runtime configuration files
+├─ data/                 # Shared-memory structures, structure headers, and memory-related declarations
+├─ lib/                  # External library binaries or library files
+├─ include/              # Headers belonging to external libraries
+├─ src/                  # Internal project folders and source code
+│  ├─ <ProjectA>/
+│  └─ <ProjectB>/
+├─ <SolutionA>.sln
+└─ <SolutionB>.sln
+```
+
+Place multiple solution projects under `src/<ProjectName>/`; `src/` may contain any number of independent or shared projects. The project root may contain multiple `.sln` files, and each solution can group a different subset of the projects under `src/`; record the solution-to-project mapping and avoid duplicating shared project code. Place generated or copied executable outputs in `bin/`, parameter files in `cfg/`, shared-memory/structure and memory declarations in `data/`, external library files in `lib/`, and external library headers in `include/`. Configure project references, include paths, library paths, and output paths using the project's existing conventions and relative paths where possible. Do not create parallel root-level code or dependency folders without a recorded reason and PM/user approval. For an existing project with a different layout, inspect and preserve the established structure unless restructuring is explicitly approved; record any deviation and migration impact instead of moving files opportunistically.
+
+## External skill installation workflow
+
+When a required external skill is not available on the PC, the system designer first confirms that no suitable local or approved skill can fulfill the task. Then:
+
+1. Identify the skill's official or trusted source, version/commit, purpose, required permissions, dependencies, and compatibility with the current project.
+2. Present the source, version, purpose, alternatives, security or privacy concerns, and installation impact to the user/PM and obtain approval before downloading or installing it. This approval does not grant unrelated external-service or credential access.
+3. After approval, download and install it into the configured skill directory using the available skill-installer or the source's documented installation method. Do not execute downloaded scripts or connect services before inspecting them and confirming their scope.
+4. Verify the installed skill's folder, `SKILL.md` frontmatter, invocation policy, referenced resources, scripts, and dependencies. Run the skill validator when available and resolve any validation failure before assignment.
+5. Perform a minimal safe test or dry run relevant to the requested task, then assign the skill only to the named role and task.
+6. Record the source, version/commit, installation location, approval, permissions, validation result, test result, and removal/update plan in the roadmap. If download, approval, or validation fails, report the blocker and do not use the unverified skill.
+
 ## Coordination rules
 
 - Use parallel work only for independent tasks. Keep architectural decisions and shared-file edits sequenced to prevent conflicts.
