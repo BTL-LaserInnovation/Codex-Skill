@@ -7,6 +7,18 @@ description: "Coordinate C++ or C# software projects from PM direction through a
 
 Use this skill for software-development work that benefits from a clear, multi-agent delivery process. It covers C++, C#, and other requested platforms; it does not prescribe a framework or alter the user's product requirements.
 
+## Resource-aware parallel execution
+
+When a task has independent, materially time-consuming work, use available and authorized LLM agents and local processes to finish it as quickly as the PC can safely support. The objective is high useful utilization, not a fixed agent count or artificial parallelism.
+
+- Before scheduling substantial parallel work, inspect the practical limits: available agent slots, logical CPU count, current CPU and memory pressure, and the project build/test topology. Keep the interactive desktop responsive by default; use the whole machine only when the user explicitly requests dedicated maximum utilization.
+- Split only independent work such as codebase reconnaissance, isolated component implementation, separate test suites, or independent reviews. Sequence architecture decisions, shared-file edits, migrations, and dependent build steps.
+- Use all available authorized agent slots when their work removes a real bottleneck. Size local build/test parallelism to the remaining CPU and memory capacity, then reduce concurrency if the system becomes memory-bound, unstable, or materially less responsive.
+- Prefer the already available model/agent tools. Do not create API keys, start a paid LLM/API workload, connect a new external service, or bypass account limits without the user's separate authorization.
+- Give every worker a bounded goal, relevant context, resource expectation, and completion signal. Reuse completed summaries instead of repeatedly sending the same repository context.
+- Monitor running workers and local processes. Stop or scale down redundant, blocked, failed, or resource-starved work; preserve enough capacity to collect results, run verification, and complete cleanup.
+- Record the selected concurrency, role assignments, resource constraints, and validation ownership in the roadmap whenever parallel execution materially affects delivery.
+
 ## Roles and ownership
 
 Establish these roles before beginning substantial work:
