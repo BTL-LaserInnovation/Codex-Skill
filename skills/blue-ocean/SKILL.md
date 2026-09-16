@@ -5,6 +5,12 @@ description: "Coordinate C++ or C# software projects from PM direction through a
 
 # Blue Ocean
 
+When `project-diagram` is available, use it to establish and maintain the project's architecture map. Require each change plan to consult the mapped affected subgraph before source-level investigation, and update the diagram after validated architectural or dependency changes.
+
+## Minimal-solution selection
+
+After understanding the affected flow, select the first option that fully meets the approved requirement: omit an unnecessary feature; reuse code already in the project; use the language standard library; use a native platform capability; use an already installed dependency; then write the smallest maintainable implementation. Do not mistake brevity for correctness: this ordering never removes required validation, error/data-loss handling, security, accessibility, observability, or tests.
+
 Use this skill for software-development work that benefits from a clear, multi-agent delivery process. It covers C++, C#, and other requested platforms; it does not prescribe a framework or alter the user's product requirements.
 
 ## Resource-aware parallel execution
