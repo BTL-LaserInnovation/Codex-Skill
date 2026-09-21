@@ -25,6 +25,16 @@ When a task has independent, materially time-consuming work, use available and a
 - Monitor running workers and local processes. Stop or scale down redundant, blocked, failed, or resource-starved work; preserve enough capacity to collect results, run verification, and complete cleanup.
 - Record the selected concurrency, role assignments, resource constraints, and validation ownership in the roadmap whenever parallel execution materially affects delivery.
 
+## PM model-selection gate
+
+Before material investigation, design, implementation, external-tool use, or task assignment, the PM classifies the task's complexity and risk in one or two sentences. Unless the user has already specified a PM model, ask this question exactly once: `Should this task keep GPT-6 Astra as PM, or switch the PM to GPT-5.6 Sol? Recommendation: <model> — <brief reason>.` Do not begin material work that depends on this model choice until the user responds.
+
+- Recommend **GPT-6 Astra** by default when scope is unclear, when architecture, shared files, dependencies, security, or release judgment is involved, or when results from several workers must be integrated.
+- Recommend **GPT-5.6 Sol** by default when the requirement and change scope are clear and the work is a local one- or two-file change, a prescribed build/test run, or repeatable maintenance that does not require complex PM judgment.
+- If the user has already named a model or instructed the PM to skip this question, record that decision and do not ask again. If the chosen model is unavailable, say so and use a user-selected available alternative.
+- Never assume or claim that an already-running PM session has changed models. When the current client requires the user to start a new PM turn or session through its model picker, explain that and wait for confirmation. Where a new PM subagent can be created, explicitly set the selected model on that agent.
+- Record the selected PM model and rationale in the roadmap's task-assignment record. Reconfirm only when the user requests a change or the scope changes materially.
+
 ## Roles and ownership
 
 Establish these roles before beginning substantial work:
