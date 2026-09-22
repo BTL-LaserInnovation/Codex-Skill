@@ -1,0 +1,3 @@
+interface:
+  display_name: "Mocha Library"
+  short_description: "Reuse MFC and C++ components from C:\\Mocha"

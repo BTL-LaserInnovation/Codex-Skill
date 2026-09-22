@@ -11,6 +11,15 @@ When `project-diagram` is available, use it to establish and maintain the projec
 
 After understanding the affected flow, select the first option that fully meets the approved requirement: omit an unnecessary feature; reuse code already in the project; use the language standard library; use a native platform capability; use an already installed dependency; then write the smallest maintainable implementation. Do not mistake brevity for correctness: this ordering never removes required validation, error/data-loss handling, security, accessibility, observability, or tests.
 
+## Mocha library reference for MFC and C++
+
+For every MFC or C++ implementation task, check whether the `mocha-library` skill is available and use it before selecting a new control, utility, library, or implementation. The system designer must resolve `PathMocha`, consult the generated Mocha index and relevant diagram area, search the relevant public headers and implementation for comparable behavior, and inspect the selected candidate's project/build contract before assigning code work.
+
+- Record the search terms, index/diagram area, viable Mocha candidate(s), and selected reuse path in the roadmap or task plan. If no candidate is suitable, record the reason before authorizing a new implementation.
+- Prefer an existing compatible Mocha API, control, library, or established implementation pattern over a duplicate. Do not copy shared Mocha code into a target project when it can be consumed through its existing contract.
+- Preserve the target project's build conventions. Any proposed use of Mocha headers, `.lib` files, `common.props`, or runtime binaries must state its Debug/Release, x64, dependency, and deployment impact before integration.
+- Treat Mocha as a shared reference source. Do not modify its source, binaries, project files, or `PathMocha` environment setup as part of an unrelated target-project task. If it is unavailable, continue with the ordinary reuse-first policy and record that the Mocha search could not run.
+
 Use this skill for software-development work that benefits from a clear, multi-agent delivery process. It covers C++, C#, and other requested platforms; it does not prescribe a framework or alter the user's product requirements.
 
 ## Resource-aware parallel execution

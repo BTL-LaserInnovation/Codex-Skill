@@ -1,0 +1,24 @@
+﻿%% schemaVersion: 1.0; updatedAt: 2026-09-22T23:14:15.6382545Z; index: mocha-library.index.json
+flowchart LR
+    mocha-solution["mocha-solution<br/>all.sln"]
+    public-headers["public-headers<br/>include"]
+    project-sources["project-sources<br/>src"]
+    reusable-libraries["reusable-libraries<br/>lib + lib.static"]
+    mfc-utilities["mfc-utilities<br/>misc, QMisc"]
+    vision-processing["vision-processing<br/>Vision, FrameGrabber"]
+    device-integration["device-integration<br/>PLC, HSMS, Scanner"]
+    geometry-3d["geometry-3d<br/>Shape, xMathUtil, 3D"]
+
+    mocha-solution -->|builds| project-sources
+    public-headers -->|contracts| mfc-utilities
+    public-headers -->|contracts| vision-processing
+    public-headers -->|contracts| device-integration
+    public-headers -->|contracts| geometry-3d
+    project-sources -->|implements| mfc-utilities
+    project-sources -->|implements| vision-processing
+    project-sources -->|implements| device-integration
+    project-sources -->|implements| geometry-3d
+    mfc-utilities -->|outputs| reusable-libraries
+    vision-processing -->|outputs| reusable-libraries
+    device-integration -->|outputs| reusable-libraries
+    geometry-3d -->|outputs| reusable-libraries
