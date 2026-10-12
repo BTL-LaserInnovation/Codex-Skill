@@ -36,7 +36,7 @@ When a task has independent, materially time-consuming work, use available and a
 
 ## Token-efficient model allocation
 
-Use **GPT-6 Sol** (`gpt-6-sol`) as the PM by default, and use **GPT-6 Luna** (`gpt-6-luna`) for bounded execution work such as reconnaissance, implementation, builds, tests, and focused reviews. This is the default allocation; do not ask the user to choose between models on each task.
+Use **GPT-6.1 Sol** (`gpt-6.1-sol`) as the PM by default, and use **GPT-6 Luna** (`gpt-6-luna`) for bounded execution work such as reconnaissance, implementation, builds, tests, and focused reviews. This is the default allocation; do not ask the user to choose between models on each task.
 
 - The Sol PM owns scope, acceptance criteria, architecture and dependency decisions, roadmap approval, task decomposition, integration, and final acceptance. Give it compact worker summaries and concrete evidence rather than repeatedly forwarding broad repository context.
 - Give Luna workers one bounded goal, only the necessary files and constraints, and a required completion summary containing changes, validation, blockers, and any decision that must return to the PM. Use Luna for actual coding and validation work whenever its task is independent and well specified.
