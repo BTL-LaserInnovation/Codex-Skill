@@ -19,4 +19,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/validate_skills.py
-      - run: python -m unittest discover -s skills/blue-ocean/scripts -p test_harness.py -v
+      - run: python -m unittest discover -s skills/blue-ocean/scripts -p "test_*.py" -v

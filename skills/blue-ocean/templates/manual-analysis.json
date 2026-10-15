@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "source_sha256": "REPLACE_WITH_HASH_FROM_MANUAL_CACHE_STATUS",
+  "analysis_revision": 1,
+  "title": "Manual title",
+  "document_version": "unknown",
+  "analysis_method": "Describe actual text extraction, OCR and visual review used",
+  "summary": "Write the reviewed purpose, supported model/version, key constraints and relevant workflows here.",
+  "units_total": null,
+  "reviewed_units": [1],
+  "limitations": ["Example only: record actual coverage gaps or uncertainty before storing."],
+  "sections": [
+    {
+      "id": "sample-section",
+      "title": "Replace with a specific topic",
+      "unit": 1,
+      "locator": "Physical PDF page 1, printed page or image region if available",
+      "keywords": ["Replace with searchable domain terms, commands or error codes"],
+      "confidence": "uncertain",
+      "content": "Replace with grounded facts, exact identifiers and values/units, procedures, constraints and any unverified details."
+    }
+  ]
+}

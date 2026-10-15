@@ -8,6 +8,7 @@ Read this reference for persistent progress, verification gates, correction loop
 - The helper does not call an LLM, launch agents, install dependencies, operate the UI, commit/push, or restart Codex outside a session. The existing coordinator schedules agents. `max_parallel_tasks` caps active task records, not CPU processes/model slots. One project-wide OS lock serializes ledger commands; verification checks run sequentially.
 - Successful command exit proves only that check's result. Choose assertions of actual requirements. Compilation alone cannot satisfy an external-integration Debug runtime requirement. The helper checks evidence-file presence/integrity; PM/QC assess content and authority. A self-written approval file is not user approval or independent QC.
 - Preserve skill-selection preferences, DR decisions and Computer Use confirmation. Configure `start` gates for applicable DR decisions and `accept` gates for QC/PM/UI/runtime evidence. Declined/blocked tests are not passed. There is no automatic exception override: PM/user documents an accepted exception and deliberately revises the contract before applicable verification is rerun.
+- For manual-dependent work, use [persistent manual knowledge](manual-knowledge.md): reuse verified sections, record the source revision and include relevant project-local manual/cache inputs or an explicit freshness/coverage check. Cached documentation is an input to verification, not evidence that product behavior passed.
 
 ## Configure a project
 

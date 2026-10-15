@@ -245,7 +245,13 @@ class HarnessTests(unittest.TestCase):
         self.assertEqual(self.state()["status"], "pending")
 
     def test_forced_parent_exit_requires_explicit_child_recovery(self):
-        self.config["checks"][0].update(argv=[sys.executable, "-c", "import time; time.sleep(2)"], timeout_seconds=5)
+        child = self.root / "bounded_child.py"
+        child.write_text("from pathlib import Path\nimport time\n"
+                         "deadline = time.monotonic() + 10\n"
+                         "while not Path('child.release').exists() and time.monotonic() < deadline:\n"
+                         "    time.sleep(0.02)\n"
+                         "Path('child.finished').write_text('finished')\n", encoding="utf-8")
+        self.config["checks"][0].update(argv=[sys.executable, str(child)], timeout_seconds=15)
         self.write_config()
         self.start()
         process = subprocess.Popen([sys.executable, str(SCRIPT), "verify", "--project-root", str(self.root),
@@ -259,13 +265,19 @@ class HarnessTests(unittest.TestCase):
             process.wait(timeout=5)
             self.invoke("verify", expected=2)
             self.invoke("resume", expected=2)
-            # The test child exits naturally; do not interfere with unrelated PIDs.
-            time.sleep(2.1)
+            # Release the bounded child explicitly rather than racing a fixed sleep.
+            (self.root / "child.release").touch()
+            deadline = time.monotonic() + 5
+            while time.monotonic() < deadline and not (self.root / "child.finished").exists():
+                time.sleep(0.02)
+            self.assertTrue((self.root / "child.finished").exists())
+            time.sleep(0.1)  # Allow interpreter teardown to close inherited log handles.
             self.invoke("resume", "--reason", "Confirmed bounded test child exited; inspected outputs")
             self.assertEqual(self.state()["status"], "needs_changes")
             self.assertEqual(self.state()["attempts"], 1)
             self.assertNotIn("active_check", self.state())
         finally:
+            (self.root / "child.release").touch()
             if process.poll() is None:
                 process.kill()
                 process.wait(timeout=5)
