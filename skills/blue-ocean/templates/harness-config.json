@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "limits": {
+    "max_attempts": 3,
+    "max_task_seconds": 7200,
+    "max_parallel_tasks": 1
+  },
+  "checks": [
+    {
+      "id": "debug-build",
+      "argv": ["dotnet", "build", "Product.sln", "--configuration", "Debug", "--no-restore"],
+      "cwd": ".",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "focused-tests",
+      "argv": ["dotnet", "test", "tests/Product.Tests.csproj", "--configuration", "Debug", "--no-restore"],
+      "cwd": ".",
+      "timeout_seconds": 300
+    }
+  ],
+  "tasks": [
+    {
+      "id": "sample-change",
+      "owner": "software-developer",
+      "scope": ["Product.sln", "src", "tests"],
+      "snapshot_exclude": ["**/bin/**", "**/obj/**", "**/__pycache__/**"],
+      "acceptance": ["Replace with the approved, observable acceptance criteria."],
+      "depends_on": [],
+      "checks": ["debug-build", "focused-tests"],
+      "gates": [
+        {"id": "design-review", "stage": "start"},
+        {"id": "qc", "stage": "accept"},
+        {"id": "pm-acceptance", "stage": "accept"}
+      ]
+    }
+  ]
+}
