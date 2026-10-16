@@ -9,6 +9,7 @@ Read this reference for persistent progress, verification gates, correction loop
 - Successful command exit proves only that check's result. Choose assertions of actual requirements. Compilation alone cannot satisfy an external-integration Debug runtime requirement. The helper checks evidence-file presence/integrity; PM/QC assess content and authority. A self-written approval file is not user approval or independent QC.
 - Preserve skill-selection preferences, DR decisions and Computer Use confirmation. Configure `start` gates for applicable DR decisions and `accept` gates for QC/PM/UI/runtime evidence. Declined/blocked tests are not passed. There is no automatic exception override: PM/user documents an accepted exception and deliberately revises the contract before applicable verification is rerun.
 - For manual-dependent work, use [persistent manual knowledge](manual-knowledge.md): reuse verified sections, record the source revision and include relevant project-local manual/cache inputs or an explicit freshness/coverage check. Cached documentation is an input to verification, not evidence that product behavior passed.
+- Load [applicable project-local rules](local-skills.md) before assigning a task; include their IDs/paths and task exceptions in the contract. Scope the relevant rule files/instruction route or use an equivalent project check so rule changes trigger affected revalidation. Capturing a rule does not pass a verification gate.
 
 ## Configure a project
 
