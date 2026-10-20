@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "evaluation_mode": "disposable fixtures; walkthrough unless actual execution is recorded",
+  "cases": [
+    {
+      "id": "mocha-reuse",
+      "request": "기존 MFC 앱에 숫자 입력 검증을 추가해 주세요.",
+      "fixture_facts": ["PM skill authority and mocha-library use are approved", "A compatible Mocha numeric control exists", "The project already links its required library"],
+      "acceptance": ["Search the available Mocha contract before choosing a new implementation", "Compare reuse with the existing input flow", "Preserve native build conventions and verify affected behavior"]
+    },
+    {
+      "id": "gui-review",
+      "request": "수동 화면 버튼 배치를 보기 편하게 바꿔 주세요.",
+      "fixture_facts": ["An existing screen capture is available", "No layout direction or Computer Use execution has been approved", "Supporting skills are approved"],
+      "acceptance": ["Inspect existing controls and show an affected-screen visual proposal before coding", "Wait for the required design direction", "Do not treat skill authority as UI test execution approval"]
+    },
+    {
+      "id": "resume-changed-input",
+      "request": "어제 중단한 작업을 이어서 완료해 주세요.",
+      "fixture_facts": ["A Blue Ocean harness ledger and previous passing checks exist", "A scoped shared header changed after those checks", "QC acceptance remains pending"],
+      "acceptance": ["Inspect current files and resume the existing ledger", "Invalidate stale evidence and rerun affected verification", "Do not reset history or accept from status alone"]
+    },
+    {
+      "id": "unavailable-ui-runtime",
+      "request": "구현된 화면이 정상인지 확인해 주세요.",
+      "fixture_facts": ["Build succeeds", "The intended native application cannot be controlled by the available Computer Use runtime", "No user exception exists"],
+      "acceptance": ["Distinguish compilation from UI runtime evidence", "Record the UI check blocked or not run with the concrete cause", "Provide a reproducible manual procedure without claiming a pass"]
+    },
+    {
+      "id": "ahead-of-upstream",
+      "request": "지정 GitHub 저장소와 비교해서 블루오션을 업데이트해 주세요.",
+      "fixture_facts": ["The remote revision is an ancestor of the local revision", "Local-only commits add harness, manual cache and project rules", "The installed skill matches local files", "No authorization to discard local features exists"],
+      "acceptance": ["Report the ancestor relationship rather than claiming remote is newer", "Preserve local additions and unrelated working edits", "Reuse the explicit update authorization only for reviewed in-scope changes"]
+    },
+    {
+      "id": "routine-text-correction",
+      "request": "문서의 오타 한 군데만 고쳐 주세요.",
+      "fixture_facts": ["The exact file and correction are given", "No code, UI, dependency or behavior changes", "Existing user authority permits this edit"],
+      "acceptance": ["Make the bounded correction and inspect its diff", "Avoid unrelated architecture/manual/GUI discovery and unnecessary worker fan-out", "Do not create a new execution ledger or run unrelated builds"]
+    }
+  ]
+}
