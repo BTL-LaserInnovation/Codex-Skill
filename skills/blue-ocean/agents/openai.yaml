@@ -1,4 +1,4 @@
 interface:
   display_name: "블루오션"
-  short_description: "기존 방식을 살린 모던 GUI 멀티 에이전트 개발 관리"
-  default_prompt: "Use $blue-ocean with gpt-6.1-sol for every agent to coordinate this software project from roadmap through reference-first implementation, typing-specialist execution of repetitive edits and code rules, modern GUI review, QC, and final reporting."
+  short_description: "기존 코드 재사용과 실제 검증으로 조율하는 C++/C# 프로젝트 개발"
+  default_prompt: "Use $blue-ocean with gpt-6.1-sol for every agent, load only the workflows this task needs, and deliver the approved changes with independent QC evidence."
