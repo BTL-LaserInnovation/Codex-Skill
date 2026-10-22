@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "논문에서 이미지로"
+  short_description: "논문의 핵심을 초등학생과 중학생도 이해하는 쉬운 그림으로 설명"
+  default_prompt: "Use $paper-to-image to explain this paper with accurate images that elementary and middle school students can understand."
