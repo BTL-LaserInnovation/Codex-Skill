@@ -1,0 +1,4 @@
+interface:
+  display_name: "프로젝트 심볼 가이드"
+  short_description: "클래스별 변수·함수 분석과 최신 참조 관리 및 재사용 추천"
+  default_prompt: "$project-symbol-guide로 현재 프로젝트의 클래스별 변수와 함수를 분석하고, 이번 작업에 재사용할 후보를 추천해줘."
