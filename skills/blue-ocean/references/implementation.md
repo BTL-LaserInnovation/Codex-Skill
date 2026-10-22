@@ -2,6 +2,15 @@
 
 Command and template paths are relative to the installed Blue Ocean skill root. Read only the sections relevant to the current task.
 
+## Project symbol guide
+
+For project analysis, implementation planning, and source changes, check whether `project-symbol-guide` is installed. If installed, read its `SKILL.md` and actively use it before choosing variables/functions or proposing new ones. Apply the standing authorization in [skill authority](update-and-authority.md); do not ask again to select this skill. If absent, continue targeted source searches and record the limitation; installation is not implied.
+
+- Consult the existing project symbol index first, verify freshness against current source including uncommitted changes, and refresh the affected classes/modules. Start with the task's scope; a small change does not require a full-project catalog.
+- Recommend compatible existing variables/functions with source locations, signatures, purpose, and relevant state/access/lifetime/thread constraints before implementation. Include the selected reuse path and gaps in the plan or handoff; combine this evidence with architecture mapping and Mocha searches when applicable.
+- If no existing symbol fits, report the searched scope, rejected candidates, and unknowns. Follow the symbol guide's permission rule before declaring or defining new project functions, reusing explicit approval for the identified functions. Skill-use authorization alone is not function-creation approval. Necessary new variables within authorized implementation follow the guide's rules.
+- After authorized code changes and validation, refresh affected symbol records and variable/function relationships. Record source freshness separately from validation status, and report partial coverage honestly.
+
 ## Mocha library reference for MFC and C++
 
 For every MFC or C++ implementation task, check whether the `mocha-library` skill is available and permitted by the saved skill-selection policy, and use it before selecting a new control, utility, library, or implementation. If its use is declined or deferred, record the limitation and continue with the ordinary reuse-first policy. When using it, the system designer must resolve `PathMocha`, consult the generated Mocha index and relevant diagram area, search the relevant public headers and implementation for comparable behavior, and inspect the selected candidate's project/build contract before assigning code work.
