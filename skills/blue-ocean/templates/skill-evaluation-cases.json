@@ -3,6 +3,32 @@
   "evaluation_mode": "disposable fixtures; walkthrough unless actual execution is recorded",
   "cases": [
     {
+      "id": "localrule-location-and-routing",
+      "request": "이 프로젝트에서는 앞으로 알람 코드를 기존 열거형에 추가해 주세요.",
+      "fixture_facts": ["No project-local skill exists", "The user gives an explicit continuing instruction for this project", "No local-skill denial or capture opt-out exists", "AGENTS.md already contains unrelated authored instructions"],
+      "acceptance": ["Create the grounded skill, registry and supporting resources under <ProjectRoot>/localrule/blue-ocean-local/", "Record the real project identity and scoped rule with source evidence; leave shared templates unchanged", "Add a bounded route to the existing AGENTS.md without replacing authored instructions", "Read back the saved rule and apply its ID and verification to affected work without claiming automatic client discovery"]
+    },
+    {
+      "id": "localrule-legacy-consolidation",
+      "request": "기존 로컬 규칙을 localrule 폴더로 모아 주세요.",
+      "fixture_variants": [
+        {"name": "legacy-only", "fixture_facts": [".agents/skills/blue-ocean-local/ contains active and disabled rules, source evidence and user edits", "AGENTS.md and a task handoff point to the legacy registry", "No destination rules exist"]},
+        {"name": "destination-conflict", "fixture_facts": ["Legacy and destination registries contain different instructions with the same rule ID", "Current user instructions do not resolve the conflict"]}
+      ],
+      "acceptance": ["Inspect existing rules and callers before moving; preserve IDs, statuses, evidence, exceptions and user edits", "For legacy-only, move rule resources under localrule/, update callers and validate the destination before removing old files", "For destination-conflict, preserve both sources without duplicate activation or destructive overwrite and report the specific limitation", "Leave unrelated project files intact"]
+    },
+    {
+      "id": "localrule-update-and-capture-controls",
+      "request": "블루오션 스킬을 업데이트하고 기존 프로젝트 작업을 계속해 주세요.",
+      "fixture_variants": [
+        {"name": "preserve-rules", "fixture_facts": ["The shared update includes blank local-rule templates", "The project has instantiated active rules under localrule/blue-ocean-local/ and a valid instruction route"]},
+        {"name": "capture-off", "fixture_facts": ["local_rule_capture_enabled is false", "An applicable active rule already exists", "A new continuing instruction is given during the task"]},
+        {"name": "no-rule-needed", "fixture_facts": ["No localrule directory exists", "Only a one-time text correction is requested; no continuing local instruction is given"]},
+        {"name": "skill-denied", "fixture_facts": ["skill_decisions[blue-ocean-local] is deny", "A local rule registry exists"]}
+      ],
+      "acceptance": ["Preserve project rules and their route during a shared skill update; do not overwrite them with template placeholders", "With capture off, use applicable active rules but do not persist the new instruction", "Do not create an empty localrule directory without a grounded rule", "With the local skill denied, keep ordinary task instructions without loading its registry"]
+    },
+    {
       "id": "symbol-guide-installed-reuse",
       "request": "기존 C# 앱의 상태 표시 로직을 수정해 주세요.",
       "fixture_facts": ["project-symbol-guide is installed", "The standing user instruction authorizes active use; no general skill authority is saved", "An existing catalog predates an uncommitted change in the affected class", "Compatible variables and functions already exist"],

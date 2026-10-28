@@ -12,8 +12,8 @@ During Blue Ocean work, capture distinctive continuing user instructions and rep
 
 ## Location, content and activation
 
-1. Resolve the established project root, applicable `AGENTS.md` files, existing project skills and `cfg/blue-ocean.preferences.json`. Reuse an equivalent local skill/rule and routing mechanism. Default: `<ProjectRoot>/.agents/skills/blue-ocean-local/`; never place project-specific learning in global user skills or the shared Blue Ocean source by default. With independent solutions in one checkout, record the owning solution and preserve scoped instructions.
-2. When needed, adapt [the local SKILL template](../templates/local-skill/SKILL.md) and [registry template](../templates/local-skill/references/rules.json). Fill the real project identity/description, remove template markers and add the grounded rule before activation. Use valid `name`/`description` frontmatter. One compact local skill is the default; split specialist skills only when separate triggers/resources materially help.
+1. Resolve the established project root, applicable `AGENTS.md` files, existing project skills and `cfg/blue-ocean.preferences.json`. Create `<ProjectRoot>/localrule/` only when a grounded local rule is needed. Keep all Blue Ocean project-local rules, their evidence and supporting resources there; the default skill is `<ProjectRoot>/localrule/blue-ocean-local/`. Reuse equivalent rules rather than creating parallel copies. Never place project-specific learning in global user skills or the shared Blue Ocean source by default. With independent solutions in one checkout, record the owning solution and preserve scoped instructions.
+2. When needed, adapt [the local SKILL template](templates/blue-ocean-local/SKILL.md) and [registry template](templates/blue-ocean-local/references/rules.json). Fill the real project identity/description, remove template markers and add the grounded rule before activation. Use valid `name`/`description` frontmatter. One compact local skill is the default; split specialist skills only when separate triggers/resources materially help, keeping them under the same `localrule/` directory. The shared skill's `localrule/` directory contains reusable guidance/templates only; instantiated rules belong to the target project.
 3. Each rule records stable `id`, `status` (`candidate`, `active`, `superseded`, `disabled`), trigger, affected paths/components, roles, actionable instruction, source record and minimal user quote or verified evidence, distinct observations, exceptions and observable verification. Add timestamps and a concise change history. The registry is authoritative; `SKILL.md` routes to it instead of duplicating all rule content.
 4. Add/update a bounded routing block in the project's existing `AGENTS.md` or established equivalent. Preserve authored instructions and nested scopes. If no instruction file exists, create `AGENTS.md` with the route. Check for an equivalent link first; never duplicate blocks or replace the whole file. Example for the default root location:
 
@@ -25,7 +25,7 @@ Before planning, assigning, implementing or reviewing work, check existing
 `cfg/blue-ocean.preferences.json` and current user instructions. A specific
 `skill_decisions["blue-ocean-local"]` value of `deny` or `defer`, or an explicit
 local-skill disable, prevents using that skill; keep ordinary task instructions.
-Otherwise read `.agents/skills/blue-ocean-local/SKILL.md` and load only active
+Otherwise read `localrule/blue-ocean-local/SKILL.md` and load only active
 rules matching the project, components, roles and task. Include rule IDs and
 exceptions in work orders and verification. `local_rule_capture_enabled: false`
 stops persistent capture; it does not by itself disable existing active rules.
@@ -36,6 +36,12 @@ tool or external-action permissions. Do not invent preference values.
 ```
 
 Use the actual relative path and skill decision key if different. If the routing file is prohibited/read-only or conflicts with this route, preserve it and use an authorized work-order/handoff record to load the local skill explicitly; report the persistence/routing limitation. Do not claim future automatic loading without a route. Explicit file reads support current work even if the client has not discovered newly created skills; do not claim a running session or discovery catalog has refreshed.
+
+## Existing rules and skill updates
+
+- Before moving existing rules from `.agents/skills/blue-ocean-local/` or another legacy location, inspect their registry, resources, project identity and callers. Consolidate them into `<ProjectRoot>/localrule/`, preserving rule IDs, statuses, evidence, exceptions and user edits. Keep concise rule evidence inside `localrule/`; references to existing task/source files may remain links rather than copies of those files.
+- Update the existing instruction route and affected references to the new paths, then read back and validate the destination before removing the old rule files. Leave unrelated files intact. Do not activate two copies of one registry or overwrite conflicting destination rules. If paths are read-only or conflicts cannot be resolved from current instructions, preserve the existing rules and route, continue unaffected work and report the specific migration limitation.
+- A shared Blue Ocean skill update must preserve the target project's `localrule/` and its instruction route. Do not copy template placeholders over instantiated rules or replace project rules with upstream content. Revalidate relevant rules and links after migration or an update that changes their loading procedure.
 
 ## Authority and user control
 
