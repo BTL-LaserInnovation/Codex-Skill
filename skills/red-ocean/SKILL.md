@@ -17,15 +17,15 @@ description: "Use for creating or changing C#/.NET applications and headless lib
 
 - **Use subagents by default.** Work alone without creating any only when the user explicitly says not to use subagents for the task. If the user gives no subagent instruction, or explicitly requests subagents, assign the five distinct roles below to separate agents. Do not reverse an explicit user choice during the task.
 - In solo mode, one agent owns scope, design, UI review when applicable, implementation, self-verification, and the final decision. Do not claim an independent QC review. Report required user decisions or Visual Studio access limits honestly.
-- In multiagent mode, use **GPT-6.1 Sol** (`gpt-6.1-sol`) with **Medium** (`medium`) reasoning for all five roles when starting agents. Do not claim an already running agent switched models. If the model or a slot is unavailable, report the constraint to the user instead of silently substituting or claiming five-agent participation.
+- In multiagent mode, use **GPT-6.1 Sol** (`gpt-6.1-sol`) for the PM only and **GPT-6.1 Terra** (`gpt-6.1-terra`) for every other agent, with **Medium** (`medium`) reasoning for all roles when starting agents. Follow the tool's context requirements for model overrides and provide a self-contained handoff when a fresh context is required. Do not claim an already running agent switched models. If a required model or a slot is unavailable, report the constraint to the user instead of silently substituting or claiming five-agent participation.
 
 | Role | Model | Responsibility |
 | --- | --- | --- |
 | Project manager (PM) | GPT-6.1 Sol Medium | Scope, acceptance criteria, priorities, assignments, conflict resolution, final review and completion decision |
-| System designer | GPT-6.1 Sol Medium | Existing architecture and reuse candidates, interfaces, impact, work boundaries, verification plan, precise developer instructions |
-| GUI designer | GPT-6.1 Sol Medium | For UI work, review WinForms screens, designer editing, options, and events; for headless libraries, review public API usability without inventing UI deliverables and mark UI checks not applicable |
-| Software developer | GPT-6.1 Sol Medium | Reuse-first implementation, builds and runtime evidence, blockers and results |
-| Program review and verification QC | GPT-6.1 Sol Medium | Independent review against criteria, reproducible defects and unverified areas, re-verification |
+| System designer | GPT-6.1 Terra Medium | Existing architecture and reuse candidates, interfaces, impact, work boundaries, verification plan, precise developer instructions |
+| GUI designer | GPT-6.1 Terra Medium | For UI work, review WinForms screens, designer editing, options, and events; for headless libraries, review public API usability without inventing UI deliverables and mark UI checks not applicable |
+| Software developer | GPT-6.1 Terra Medium | Reuse-first implementation, builds and runtime evidence, blockers and results |
+| Program review and verification QC | GPT-6.1 Terra Medium | Independent review against criteria, reproducible defects and unverified areas, re-verification |
 
 In multiagent mode, follow this sequence:
 

@@ -12,5 +12,5 @@
 
 ## 근거와 적용 범위
 
-- [GPT-6 Astra 스킬·프롬프트 재검토](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra), 2026-09-11: 간결하고 정확한 설명·조건별 참조·작업 규모에 맞는 문맥. 구조적 원칙을 적용하되 블루오션의 Sol 모델 선택과 명시적 승인 조건을 보존합니다.
+- [GPT-6 Astra 스킬·프롬프트 재검토](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra), 2026-09-11: 간결하고 정확한 설명·조건별 참조·작업 규모에 맞는 문맥. 구조적 원칙을 적용하되 블루오션의 역할별 모델 배정과 명시적 승인 조건을 보존합니다.
 - [실행 환경을 고려한 플러그인 평가](https://developers.openai.com/cookbook/examples/partners/harness_aware_plugin_evals/harness_aware_plugin_evals), 2026-09-23: 모델과 실행 환경을 함께 평가하고 대상 클라이언트의 대표 동작·반복 결과를 비교합니다. 사례는 이 방법을 블루오션에 맞게 구성한 것이며 OpenAI 벤치마크가 아닙니다.

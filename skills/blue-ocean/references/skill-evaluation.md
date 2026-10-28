@@ -12,5 +12,5 @@ Use when changing this skill's instructions, routing, model selection or tool in
 
 ## Sources and scope
 
-- [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra) (September 11, 2026): short discriminating descriptions, conditional reference loading and proportionate context. Apply these structural ideas while preserving Blue Ocean's chosen Sol model and explicit gates.
+- [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra) (September 11, 2026): short discriminating descriptions, conditional reference loading and proportionate context. Apply these structural ideas while preserving Blue Ocean's chosen role-based model allocation and explicit gates.
 - [Harness-aware evaluation of plugins](https://developers.openai.com/cookbook/examples/partners/harness_aware_plugin_evals/harness_aware_plugin_evals) (September 23, 2026): results depend on the model plus execution harness; compare representative target-client behavior and repeated outcomes. The case set adapts that method to this skill; it is not an OpenAI benchmark.
