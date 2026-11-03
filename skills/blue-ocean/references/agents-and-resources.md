@@ -1,27 +1,23 @@
 # Agent models and resource scheduling
 
-Command and template paths are relative to the installed Blue Ocean skill root. Read only the sections relevant to the current task.
-
 ## Resource-aware parallel execution
 
-When a task has independent, materially time-consuming work, use available and authorized LLM agents and local processes to finish it as quickly as the PC can safely support. The objective is high useful utilization, not a fixed agent count or artificial parallelism.
+Use available authorized agents/processes for independent work that removes a real bottleneck. Do not create a fixed agent count or parallelize dependent work.
 
-- Before scheduling substantial parallel work, inspect the practical limits: available agent slots, logical CPU count, current CPU and memory pressure, and the project build/test topology. Keep the interactive desktop responsive by default; use the whole machine only when the user explicitly requests dedicated maximum utilization.
-- Split only independent work such as codebase reconnaissance, isolated component implementation, separate test suites, or independent reviews. Sequence architecture decisions, shared-file edits, migrations, and dependent build steps.
-- Use all available authorized agent slots when their work removes a real bottleneck. Size local build/test parallelism to the remaining CPU and memory capacity, then reduce concurrency if the system becomes memory-bound, unstable, or materially less responsive.
-- Prefer the already available model/agent tools. Do not create API keys, start a paid LLM/API workload, connect a new external service, or bypass account limits without the user's separate authorization.
-- Give every worker a bounded goal, relevant context, resource expectation, and completion signal. Reuse completed summaries instead of repeatedly sending the same repository context.
-- Monitor running workers and local processes. Stop or scale down redundant, blocked, failed, or resource-starved work; preserve enough capacity to collect results, run verification, and complete cleanup.
-- Record the selected concurrency, role assignments, resource constraints, and validation ownership in the roadmap whenever parallel execution materially affects delivery.
-## PM reporting and budget control
-
-Before dispatch, use [PM control](pm-control.md) for the work-order contract, historical token estimate, reporting cadence and escalation thresholds. Every worker, including nested agents and specialist-issued typing work, reports milestone evidence, remaining work, measured/estimated token coverage and remaining time to the PM. The PM maintains the consolidated view, checks stale reports and controls reprioritization, stopping, reassignment and replanning inside approved scope/limits. Reserve capacity and forecast tokens/time for PM integration and independent QC; do not double-count parent/child usage or claim token enforcement from the process/task-count limits.
+- Before substantial parallel work, inspect agent slots, logical CPU count, CPU/memory pressure and build/test topology. Keep the interactive desktop responsive unless the user requests dedicated maximum utilization.
+- Parallelize independent reconnaissance, isolated components, test suites or reviews. Sequence architecture decisions, shared-file edits, migrations and dependent builds; isolate build outputs where needed.
+- Fit agent/build concurrency to capacity; reduce it for memory pressure, instability or poor responsiveness. Monitor running work and stop/scale down redundant, blocked, failed or resource-starved work while preserving capacity for integration, verification and cleanup.
+- Use existing tools and account limits; new API keys, paid workloads or external-service connections require separate user authorization.
+- Record material concurrency/resource choices and validation owners in the roadmap. Apply [PM control](pm-control.md) for bounded work orders, reporting, token allowances and forecasts, including nested and typing work.
 
 ## Role-based agent models
 
-Use **GPT-6.1 Sol** (`gpt-6.1-sol`) for the PM only. Use **GPT-6.1 Terra** (`gpt-6.1-terra`) for every other Blue Ocean agent: system designer, GUI designer, software developer, typing specialist, QC, and any additional reconnaissance, build, test, or review workers. Apply this allocation without asking the user to choose models on each task.
+Use **GPT-6.1 Sol** (`gpt-6.1-sol`) for the PM only and **GPT-6.1 Terra** (`gpt-6.1-terra`) for all other Blue Ocean roles, including designers, developers, typing, QC, reconnaissance, build and test workers. Reuse this allocation without asking each time.
 
-- The PM retains scope, acceptance criteria, roadmap approval, task decomposition, integration, and final acceptance. Specialist agents retain their domain responsibilities. Give each worker one bounded goal, necessary files and constraints, and a completion summary covering changes, validation, blockers, and decisions for the responsible owner.
-- When creating a subagent, explicitly select its role's model: `gpt-6.1-sol` for a PM and `gpt-6.1-terra` for any other role. Follow the tool's context requirements for model overrides; if overrides require a fresh context, provide a self-contained task handoff. When only inheritance is supported, verify the parent uses the required model before claiming compliance. Do not claim an already-running session has changed models; explain any required client-side switch or new session.
-- If a role's required model is unavailable, report the constraint and leave the affected assignment pending rather than silently substituting another model. A different allocation requires an explicit user instruction.
-- Record each agent's role and effective model in the roadmap's task-assignment record; mark unverified model information as unverified. Change this allocation only when the user requests it.
+- Explicitly select the role's model when spawning. Follow the tool's model-override/context requirements and provide a self-contained handoff when a fresh context is required. With inheritance only, verify the parent's model before claiming compliance.
+- A required model being unavailable leaves that assignment pending; do not silently substitute. An already-running session cannot be declared switched by a prompt. Explain any necessary client switch/new session.
+- Record role/effective model in the task assignment and mark unknown values unverified. Change the allocation only on explicit user instruction.
+
+## Context and handoff
+
+Use the [delivery roles](delivery.md#roles-and-ownership) and PM work orders for ownership. Give each worker its bounded goal, necessary files/excerpts, constraints, expected resources and completion signal. Reuse unchanged file references and prior summaries. Completion returns changes, validation, blockers and owner decisions; keep shared-file edits sequential and QC independent where feasible.

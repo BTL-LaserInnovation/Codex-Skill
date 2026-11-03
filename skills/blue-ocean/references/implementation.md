@@ -1,82 +1,73 @@
 # Reuse, implementation and QC conventions
 
-Command and template paths are relative to the installed Blue Ocean skill root. Read only the sections relevant to the current task.
-
 ## Project symbol guide
 
-For project analysis, implementation planning, and source changes, check whether `project-symbol-guide` is installed. If installed, read its `SKILL.md` and actively use it before choosing variables/functions or proposing new ones. Apply the standing authorization in [skill authority](update-and-authority.md); do not ask again to select this skill. If absent, continue targeted source searches and record the limitation; installation is not implied.
+For project analysis, implementation planning and source changes, actively use an installed `project-symbol-guide` under its [standing authorization](update-and-authority.md). Read that skill before choosing variables/functions. If absent or later restricted, use targeted source searches and record the limitation; installation is not implied.
 
-- Consult the existing project symbol index first, verify freshness against current source including uncommitted changes, and refresh the affected classes/modules. Start with the task's scope; a small change does not require a full-project catalog.
-- Recommend compatible existing variables/functions with source locations, signatures, purpose, and relevant state/access/lifetime/thread constraints before implementation. Include the selected reuse path and gaps in the plan or handoff; combine this evidence with architecture mapping and Mocha searches when applicable.
-- If no existing symbol fits, report the searched scope, rejected candidates, and unknowns. Follow the symbol guide's permission rule before declaring or defining new project functions, reusing explicit approval for the identified functions. Skill-use authorization alone is not function-creation approval. Necessary new variables within authorized implementation follow the guide's rules.
-- After authorized code changes and validation, refresh affected symbol records and variable/function relationships. Record source freshness separately from validation status, and report partial coverage honestly.
+- Verify the existing index against current source, including uncommitted changes, and refresh affected classes/modules. A small change needs no full-project catalog.
+- Recommend compatible existing symbols with source locations, signatures, purpose and relevant state/access/lifetime/thread constraints. Record the selected reuse path and gaps alongside architecture/Mocha evidence.
+- If no symbol fits, report search scope, rejected candidates and unknowns. Before declaring/defining a new project function, follow the symbol guide's separate permission rule; reuse approval covering the identified function. Skill-use authorization alone is insufficient. Apply its variable rules to necessary new values.
+- After authorized changes and validation, refresh affected symbol records and relationships. Distinguish source freshness from validation and report partial coverage.
 
 ## Mocha library reference for MFC and C++
 
-For every MFC or C++ implementation task, check whether the `mocha-library` skill is available and permitted by the saved skill-selection policy, and use it before selecting a new control, utility, library, or implementation. If its use is declined or deferred, record the limitation and continue with the ordinary reuse-first policy. When using it, the system designer must resolve `PathMocha`, consult the generated Mocha index and relevant diagram area, search the relevant public headers and implementation for comparable behavior, and inspect the selected candidate's project/build contract before assigning code work.
+Before choosing a new MFC/C++ control, utility, library or implementation, check availability and saved permission for `mocha-library`. When permitted, use it to resolve `PathMocha`, consult the generated index/relevant diagram, search public headers and implementation, and inspect the candidate's build contract before assigning code.
 
-- Record the search terms, index/diagram area, viable Mocha candidate(s), and selected reuse path in the roadmap or task plan. If no candidate is suitable, record the reason before authorizing a new implementation.
-- Prefer an existing compatible Mocha API, control, library, or established implementation pattern over a duplicate. Do not copy shared Mocha code into a target project when it can be consumed through its existing contract.
-- Preserve the target project's build conventions. Any proposed use of Mocha headers, `.lib` files, `common.props`, or runtime binaries must state its Debug/Release, x64, dependency, and deployment impact before integration.
-- Treat Mocha as a shared reference source. Do not modify its source, binaries, project files, or `PathMocha` environment setup as part of an unrelated target-project task. If it is unavailable, continue with the ordinary reuse-first policy and record that the Mocha search could not run.
+- Record search terms, index/diagram area, candidates and selected reuse path. Explain why no candidate fits before choosing a new implementation.
+- Consume a compatible API/library through its existing contract instead of copying shared Mocha code into the target project.
+- State Debug/Release, x64, dependency and deployment impact for headers, `.lib` files, `common.props` and runtime binaries.
+- Preserve Mocha source, binaries, project files and `PathMocha` setup during unrelated target-project work. If unavailable, denied or deferred, record the limitation and continue ordinary reuse-first work.
 
-Use this skill for software-development work that benefits from a clear, multi-agent delivery process. It covers C++, C#, and other requested platforms; it does not prescribe a framework or alter the user's product requirements.
-## Open-source component and library policy
+## Dependencies and open-source components
 
-For MFC and C# work, an existing open-source control, component, or library is an approved and recommended implementation option when it fits the requirements and project conventions. Prefer using the upstream control as-is before reimplementing equivalent behavior; adapt it through the project's existing wrapper, styling, event, or integration points only when necessary. Do not fork or materially modify upstream code without recording the reason, maintenance plan, and upgrade impact.
+Search repository code, project/package manifests, resources and build configuration before adding a utility, control, asset or dependency. Prefer a compatible existing item; a visual effect alone does not justify a new library.
 
-Before introducing an open-source item, the system designer or developer lists the viable candidates and lets the user/PM select one when the choice materially affects the product. Keep the comparison concise and include: supported feature and platform fit, visual/interaction fit, license obligations, repository/release and issue activity, documentation and supportability, source/package/build integration, Debug/Release and x86/x64 compatibility, deployment/runtime dependencies, security or performance risks, and expected adaptation effort. If only one candidate is viable, record why alternatives were rejected. The selected item, version or commit, license notice requirements, approval, and validation plan must be recorded in the roadmap.
+For MFC/C#, compatible open-source controls/libraries are recommended reuse options. Use upstream as-is when suitable, adapting through established wrappers/styles/events. A fork or material upstream edit needs its reason, maintenance plan and upgrade impact.
 
-For C# projects, a verified and compatible NuGet package is a preferred reuse source for controls, libraries, and established functionality. Prefer official or clearly maintained packages, pin the selected version, inspect the package metadata and transitive dependencies, preserve the project's existing package-management convention, and validate restore, build, Debug execution, and runtime behavior before completion. Record the package ID, version, source, license, target framework compatibility, dependency changes, and evidence of verification; do not silently upgrade or replace a package during unrelated work.
+Before introduction, compare viable candidates by requirements and visual fit, license, maintenance/release/issue activity, documentation, package/build integration, Debug/Release and x86/x64 support, deployment dependencies, security/performance and adaptation effort. Explain rejected alternatives when only one fits. Material product choices require PM/user selection; record purpose, selected version/commit, license notices, approval and validation in the roadmap.
+
+For C#, prefer verified compatible NuGet packages, pin the version and inspect metadata/transitive dependencies. Preserve existing package management; record ID/source/license/framework and dependency changes. Verify restore, build and actual Debug runtime behavior. Do not silently upgrade or replace packages in unrelated work.
+
 ## Solution-based project layout
 
-When a project contains a `.sln` file, treat the directory containing that solution as the project root. For a new project or an unstructured project, use this top-level layout by default:
+When a `.sln` exists, its directory is the project root. For new/unstructured projects, use:
 
-```text
-<ProjectRoot>/
-├─ bin/                  # Executable files and runnable outputs
-├─ cfg/                  # Parameter and runtime configuration files
-├─ data/                 # Shared-memory structures, structure headers, and memory-related declarations
-├─ lib/                  # External library binaries or library files
-├─ include/              # Headers belonging to external libraries
-├─ src/                  # Internal project folders and source code
-│  ├─ <ProjectA>/
-│  └─ <ProjectB>/
-├─ <SolutionA>.sln
-└─ <SolutionB>.sln
-```
+| Path | Contents |
+| --- | --- |
+| `bin/` | Executables and runnable outputs |
+| `cfg/` | Parameters and runtime configuration |
+| `data/` | Shared-memory structures, structure headers and memory declarations |
+| `lib/`, `include/` | External library binaries and headers |
+| `src/<ProjectName>/` | Internal independent/shared projects |
+| `<SolutionName>.sln` | One or more solutions mapping projects under `src/` |
 
-Place multiple solution projects under `src/<ProjectName>/`; `src/` may contain any number of independent or shared projects. The project root may contain multiple `.sln` files, and each solution can group a different subset of the projects under `src/`; record the solution-to-project mapping and avoid duplicating shared project code. Place generated or copied executable outputs in `bin/`, parameter files in `cfg/`, shared-memory/structure and memory declarations in `data/`, external library files in `lib/`, and external library headers in `include/`. Configure project references, include paths, library paths, and output paths using the project's existing conventions and relative paths where possible. Do not create parallel root-level code or dependency folders without a recorded reason and PM/user approval. For an existing project with a different layout, inspect and preserve the established structure unless restructuring is explicitly approved; record any deviation and migration impact instead of moving files opportunistically.
-## Coordination rules
+Record solution-to-project mapping; avoid duplicating shared code. Use established reference/include/library/output conventions and relative paths where possible. Preserve an existing different layout unless restructuring is explicitly approved. Parallel root-level code/dependency folders require a recorded reason and PM/user approval.
 
-- Use parallel work only for independent tasks. Keep architectural decisions and shared-file edits sequenced to prevent conflicts.
-- Treat the approved roadmap as the source of truth. Update it when the PM accepts a material scope, design, or schedule change.
-- The system designer may assign an already available, project-relevant skill to the GUI designer or software developer within the saved skill-selection authority and per-skill decisions. Assignments grant use of the skill for the named task; they do not grant external-service access, new credentials, or permission to install dependencies.
-- The system designer provides each assigned GUI designer and software developer with the appropriate available tools: relevant skills, project-native build and test commands, design-system resources, and the locations of applicable existing code. This does not bypass authorization required for external services, credentials, or new dependencies.
-- For coding-development work, the system designer checks whether the Superpowers skill is available and may assign it to the software developer when its workflow is relevant. Use it as a supporting reference; the approved roadmap, project conventions, and acceptance criteria remain authoritative. If Superpowers is unavailable, continue with the project's existing tools and practices rather than treating its installation as implicit.
-- Before assigning implementation guidance, the system designer searches the existing codebase for comparable screens, components, functions, variables, and data flows, and recommends the relevant references to the responsible agent.
-- If the requester identifies reference code or a reference project, inspect its structure and how its functions are used, then use that evidence when defining the implementation plan and compatibility guidance.
-- For GUI modernization, first establish a visual and behavioral baseline from the current product and references. Improve hierarchy, spacing, typography, color, feedback, empty/loading/error states, and accessibility as appropriate, but preserve established navigation, domain terminology, important operator workflows, and platform conventions unless the PM explicitly approves a behavior change.
-- For UI work, use an image-based DR gate before implementation: show only the affected screens or flow as a lightweight wireframe, mockup, annotated screenshot, or comparable visual proposal; obtain user feedback and a recorded direction; then update the handoff before coding. Do not spend effort on pixel-perfect visuals before the interaction and layout direction is accepted. If an image cannot be produced with available tools, provide the smallest useful wireframe or annotated existing-screen capture and record the limitation.
-- Treat the existing UI as a design system to be discovered before it is extended. Reuse its control classes, wrappers, resource patterns, naming, event/message flow, layout helpers, theme values, icons, and validation/error handling when their semantics remain compatible. If a new component is necessary, make it look and behave like the existing family and document why reuse was insufficient.
-- Use a reuse-first dependency policy. Search the repository, project files, package manifests, resource directories, and build configuration for an existing implementation or already referenced library before creating a new utility, control, asset, or dependency. Prefer adapting a compatible existing item; do not add a library merely to obtain a visual effect. A new dependency or replacement must include its purpose, compatibility/license/build impact, alternatives considered, and PM/user approval when material.
-- Developers must implement GUI designs through the project's established UI construction method where possible: use the same dialog/view/control creation path, resource or markup convention, event/message wiring, state management, and styling extension points. Do not introduce a parallel UI architecture or mix frameworks without a recorded reason and system-designer confirmation.
-- For logic-heavy changes, use a sample-first routine: isolate the smallest behavior or interface slice, implement a minimal sample or focused unit/characterization test using project-native patterns, run it with representative success and failure inputs, and record the result. Only after the sample passes should the developer expand to the broader code path, integrating one verified slice at a time. If the sample fails, correct the approach and rerun it before making broad edits.
-- GUI QC checks both modern visual quality and continuity with the existing product: compare target screens with the baseline/reference, verify normal/hover/focus/disabled/loading/empty/error states, confirm keyboard/accessibility behavior where applicable, and check that reused components retain their existing semantics. Record visual deviations with screenshots or reproducible steps and distinguish intentional approved changes from regressions.
-- Optimize context and token use without skipping required discovery or verification. Start with filenames, symbols, project manifests, resource indexes, and targeted search results; read only the relevant sections of candidate files, then expand the scope when evidence requires it. Do not repeatedly load the same unchanged file or restate the same roadmap, handoff, or QC evidence. Keep shared artifacts compact and structured around decisions, references, changes, risks, and next actions, and link to stable files instead of copying their contents. Give each agent only the artifact excerpts and constraints needed for its assigned task, summarize completed work before handing off, and reuse that summary in later stages. Run independent reconnaissance or validation in parallel when safe, while sequencing shared-file edits and architectural decisions.
-- Direct GUI and software work to follow the established project conventions as closely as possible, including architecture, naming, formatting, control flow, error handling, and project-native tools. Deviations require a recorded technical reason and system-designer confirmation.
-- Do not add variables without a demonstrated need. Before introducing one, search for an existing value that safely serves the same purpose; reuse it when its scope, lifetime, and meaning are compatible, even if its name differs. Do not reuse a value when that would obscure its meaning or create unsafe coupling.
-- Enforce an explicit type-and-scope naming rule for every new or modified C++/C# variable or field. The name must contain a project-approved type prefix and a meaningful semantic name; a type alone or a one-letter name is insufficient. For example, use `int nItemCount`, `double dMeasuredDistance`, and `CString strStatusMessage`, not `int i`, `double d`, or `CString str`. Use `m_` for member fields and `g_` for global or file-scope variables before the type prefix, such as `m_nRetryCount`, `m_strStatusMessage`, and `g_dDefaultScale`. Apply the same rule to loop counters and parameters (`nIndex`, `nRowIndex`) unless a narrowly scoped mathematical convention is documented.
-- Keep the type-prefix vocabulary consistent with the project (for example: `b` for `bool`, `n` for `int`, `d` for `double`, `f` for `float`, `str` for `CString`/`std::string`, `p` for pointers, and `arr` for arrays). Do not use a type prefix as a substitute for meaning: `m_nCount` is weaker than `m_nRetryCount` when the domain meaning is retry count.
-- Before implementation, the system designer records the applicable type-prefix table and any approved naming exceptions in the roadmap or task plan; the developer follows that baseline and QC verifies against the same record.
-- During implementation and QC, flag declarations that lack the required type prefix, semantic suffix, or `m_`/`g_` scope marker. Do not mass-rename untouched legacy code; rename declarations that are part of the approved change where safe, and record a technical exception for generated code, public/ABI-bound names, external callbacks, or an established project convention that cannot be changed.
-- When no suitable approved skill exists, the system designer reports the gap and proposes a skill or creation task to the PM. Obtain PM/user authorization before installing a skill, connecting an external service, or introducing a material dependency.
-- Record a skill assignment in the roadmap with its target role and purpose so QC can verify that its constraints were followed.
-- Treat an approved GUI handoff as the source of truth for screens and interactions. Changes that affect user flow, layout, component behavior, or accessibility require GUI-designer review and PM acceptance when they alter scope.
-- Keep user GUI-review feedback and confirmations with the design handoff. A material unresolved user decision blocks the affected GUI stage until the user or PM provides direction.
-- For C++ and C#, choose the project-native build and test commands when present. Do not introduce a new build system or dependencies without user authorization.
-- For every external library, SDK, or API integration, the software developer follows this Debug routine: (1) record the version, required configuration, credentials or endpoint assumptions, and project-native build target; (2) build with the project's Debug configuration and confirm dependency loading/linking; (3) run the actual program or a minimal in-project smoke path with debug symbols and useful logs enabled; (4) exercise initialization, the primary call, returned data or state change, callback/event flow, timeout or cancellation, error handling, and cleanup as applicable; (5) inspect exceptions, assertions, return codes, logs, thread/UI-affinity issues, resource ownership, and shutdown behavior; (6) test at least one invalid configuration or unavailable-service path when the integration depends on external state; and (7) record reproducible steps, environment, expected versus actual result, and evidence. Runtime success must be verified in Debug before the integration is marked complete; unresolved failures are blockers or documented PM/user exceptions.
-- QC must distinguish verified defects from suggestions. A release-blocking finding needs evidence, expected versus actual behavior, and a clear owner.
-- A failed QC check is not complete until QC records a passing re-verification or the PM/user accepts a documented exception with its remaining risk.
-- Unless the user requests another language, present roadmap summaries, task plans, GUI-review notes, QC findings, progress reports, and final results in Korean. Keep source code, commands, paths, API names, and other identifiers unchanged, and explain them in Korean where clarification is needed.
-- If a required decision, credential, external service, or acceptance criterion is unavailable, report the blocker to the PM/user with the smallest decision needed to continue.
+## Implementation planning and naming
+
+- Inspect user-specified reference projects and how their functions are used. Recommend existing screens, components, symbols and data flows to the assigned developer; link relevant files/excerpts instead of repeatedly copying unchanged context.
+- Preserve architecture, formatting, control flow, error handling and project-native tools. Record technical deviations and obtain system-designer confirmation. Provide the assigned skills, code/design references and build/test commands through the [delivery handoff](delivery.md); skill access/installation follows [authority](update-and-authority.md).
+- If an available, permitted Superpowers skill fits the development task, the system designer may assign it as a supporting reference. Its absence does not imply installation; the roadmap and project conventions remain authoritative.
+- Use the [GUI workflow](gui-workflow.md) for visual baseline, proposal confirmation, component reuse, handoff, construction and visual QC.
+- Before adding a variable, reuse an existing value only when scope, lifetime and meaning safely match; avoid ambiguous coupling.
+- For every new/modified C++/C# variable or field, use a project-approved type prefix plus a meaningful name, with `m_` for members and `g_` for global/file-scope variables before the type prefix. Examples: `nItemCount`, `dMeasuredDistance`, `strStatusMessage`, `m_nRetryCount`, `g_dDefaultScale`. Apply to parameters and loops (`nIndex`, `nRowIndex`); a type alone or one letter is insufficient.
+- The system designer records the prefix table and approved exceptions before implementation; developers and QC use the same baseline. Typical prefixes: `b` bool, `n` int, `d` double, `f` float, `str` strings, `p` pointers, `arr` arrays. Preserve domain meaning in the suffix.
+- Check naming in affected declarations without mass-renaming untouched legacy code. Document technical exceptions for generated code, public/ABI-bound names, external callbacks, fixed project conventions and narrowly scoped mathematical notation.
+
+## Sample-first logic and Debug integration
+
+Use project-native C++/C# build/test commands. A new build system or dependency requires user authorization.
+
+For logic-heavy changes, isolate the smallest behavior/interface slice, implement a minimal sample or focused unit/characterization test, and run representative success/failure inputs. Record the result and correct failures before expanding into broader code, one verified slice at a time.
+
+For every external library/SDK/API integration:
+
+1. Record version, required configuration, credential/endpoint assumptions and native build target.
+2. Build Debug and confirm dependency loading/linking.
+3. Run the actual program or minimal in-project smoke path with debug symbols and useful logs.
+4. Exercise applicable initialization, primary calls, returned data/state, callbacks, timeout/cancellation, error handling and cleanup.
+5. Inspect exceptions/assertions, return codes/logs, thread/UI affinity, ownership and shutdown.
+6. For external-state dependencies, test at least one invalid configuration or unavailable-service path.
+7. Record reproducible steps, environment, expected/actual results and evidence.
+
+Compilation/linking alone cannot complete integration; require actual Debug success or a documented PM/user exception with remaining risk. Review and correction ownership follow [delivery](delivery.md#operating-workflow).

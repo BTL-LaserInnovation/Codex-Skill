@@ -1,7 +1,5 @@
 # GUI design and real-operation verification
 
-Command and template paths are relative to the installed Blue Ocean skill root. Read only the sections relevant to the current task.
-
 ## UI proposal and user confirmation before implementation
 
 Apply this gate whenever the requested change affects UI appearance, layout, controls, text, states or interactions, including small corrections.
@@ -11,6 +9,15 @@ Apply this gate whenever the requested change affects UI appearance, layout, con
 3. Record the proposal, user response and approved scope in the existing task plan or handoff, then implement within that scope. Reuse an existing explicit confirmation for the same proposal and scope. If the user requests revisions, revise and present the proposal again before implementation; changes outside the confirmed design also require confirmation.
 
 This gate concerns design approval before implementation. The Computer Use execution decision below remains a separate step.
+
+## Design handoff and review
+
+- Establish the current visual/behavioral baseline from affected screens and references. Reuse compatible controls, wrappers, resources, naming, event/message flow, layout helpers, themes, icons and error handling; explain any new component and match the existing family.
+- Propose appropriate hierarchy, spacing, typography, color, feedback and accessibility improvements while preserving established navigation, terminology, operator workflows and platform conventions within the user-confirmed scope. Keep proposals lightweight until interaction/layout direction is confirmed; record tool limitations and use a useful wireframe or annotated capture when needed.
+- Keep the baseline, confirmed proposal, feedback, open decisions, component states, spacing/typography/color rules, interactions, accessibility and per-element control/helper mappings in the handoff. Store artifacts in the project when persistent files exist; otherwise present them in the response.
+- Map the design to the established dialog/view/control creation, event/message wiring, state management and styling paths under the platform defaults below. Report unsafe mappings or feasibility issues; a parallel UI architecture/framework needs a recorded reason and system-designer confirmation.
+- At planned review checkpoints, present the current screen/prototype, record user feedback/confirmation and update the handoff before the next affected stage. Changed designs follow the confirmation gate above; scope changes also need PM acceptance.
+- GUI QC compares against the approved baseline: visual quality, component semantics, normal/hover/focus/disabled/loading/empty/error states and applicable keyboard/accessibility behavior. Record deviations with screenshots or reproducible steps, distinguishing approved changes from regressions.
 
 ## User-confirmed Computer Use verification
 
