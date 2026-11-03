@@ -2,6 +2,16 @@
 
 Command and template paths are relative to the installed Blue Ocean skill root. Read only the sections relevant to the current task.
 
+## UI proposal and user confirmation before implementation
+
+Apply this gate whenever the requested change affects UI appearance, layout, controls, text, states or interactions, including small corrections.
+
+1. Inspect the affected screen and existing project conventions, then create a reviewable image, wireframe, mockup or annotated screen showing the proposed result. Identify the changed elements and relevant interaction/state behavior; a text-only plan is insufficient. Read-only investigation and proposal preparation may proceed before confirmation.
+2. Present the proposal and ask the user to confirm that specific design. Wait for explicit confirmation before changing the application's UI source, resources or implementation. A general request to make the change, PM approval, skill-selection authority, silence or elapsed time does not confirm the proposal.
+3. Record the proposal, user response and approved scope in the existing task plan or handoff, then implement within that scope. Reuse an existing explicit confirmation for the same proposal and scope. If the user requests revisions, revise and present the proposal again before implementation; changes outside the confirmed design also require confirmation.
+
+This gate concerns design approval before implementation. The Computer Use execution decision below remains a separate step.
+
 ## User-confirmed Computer Use verification
 
 After implementation is ready, verify that the actual application behaves as requested through its real UI before final acceptance. QC owns the scenarios and verdict; an assigned verification agent operates the UI, with the GUI designer assisting when visual or interaction behavior is affected.

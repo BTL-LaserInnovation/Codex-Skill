@@ -13,6 +13,10 @@ When a task has independent, materially time-consuming work, use available and a
 - Give every worker a bounded goal, relevant context, resource expectation, and completion signal. Reuse completed summaries instead of repeatedly sending the same repository context.
 - Monitor running workers and local processes. Stop or scale down redundant, blocked, failed, or resource-starved work; preserve enough capacity to collect results, run verification, and complete cleanup.
 - Record the selected concurrency, role assignments, resource constraints, and validation ownership in the roadmap whenever parallel execution materially affects delivery.
+## PM reporting and budget control
+
+Before dispatch, use [PM control](pm-control.md) for the work-order contract, historical token estimate, reporting cadence and escalation thresholds. Every worker, including nested agents and specialist-issued typing work, reports milestone evidence, remaining work, measured/estimated token coverage and remaining time to the PM. The PM maintains the consolidated view, checks stale reports and controls reprioritization, stopping, reassignment and replanning inside approved scope/limits. Reserve capacity and forecast tokens/time for PM integration and independent QC; do not double-count parent/child usage or claim token enforcement from the process/task-count limits.
+
 ## Role-based agent models
 
 Use **GPT-6.1 Sol** (`gpt-6.1-sol`) for the PM only. Use **GPT-6.1 Terra** (`gpt-6.1-terra`) for every other Blue Ocean agent: system designer, GUI designer, software developer, typing specialist, QC, and any additional reconnaissance, build, test, or review workers. Apply this allocation without asking the user to choose models on each task.
