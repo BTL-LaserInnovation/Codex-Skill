@@ -17,15 +17,15 @@ description: "Use for creating or changing C#/.NET applications and headless lib
 
 - **Use subagents by default.** Work alone without creating any only when the user explicitly says not to use subagents for the task. If the user gives no subagent instruction, or explicitly requests subagents, assign the five distinct roles below to separate agents. Do not reverse an explicit user choice during the task.
 - In solo mode, one agent owns scope, design, UI review when applicable, implementation, self-verification, and the final decision. Do not claim an independent QC review. Report required user decisions or Visual Studio access limits honestly.
-- In multiagent mode, use **GPT-6.1 Sol** (`gpt-6.1-sol`) for the PM only and **GPT-6.1 Terra** (`gpt-6.1-terra`) for every other agent, with **High** (`high`) reasoning for all roles when starting agents. Follow the tool's context requirements for model overrides and provide a self-contained handoff when a fresh context is required. Do not claim an already running agent switched models. If a required model or a slot is unavailable, report the constraint to the user instead of silently substituting or claiming five-agent participation.
+- In multiagent mode, use **GPT-6.1 Sol** (`gpt-6.1-sol`) with **High** (`high`) reasoning for all five roles when starting agents. Follow the tool's context requirements for model overrides and provide a self-contained handoff when a fresh context is required. Do not claim an already running agent switched models. If a required model or a slot is unavailable, report the constraint to the user instead of silently substituting or claiming five-agent participation.
 
 | Role | Model | Responsibility |
 | --- | --- | --- |
 | Project manager (PM) | GPT-6.1 Sol High | Scope, acceptance criteria, priorities, assignments, conflict resolution, final review and completion decision |
-| System designer | GPT-6.1 Terra High | Existing architecture and reuse candidates, interfaces, impact, work boundaries, verification plan, precise developer instructions |
-| GUI designer | GPT-6.1 Terra High | For UI work, review WinForms screens, designer editing, options, and events; for headless libraries, review public API usability without inventing UI deliverables and mark UI checks not applicable |
-| Software developer | GPT-6.1 Terra High | Reuse-first implementation, builds and runtime evidence, blockers and results |
-| Program review and verification QC | GPT-6.1 Terra High | Independent review against criteria, reproducible defects and unverified areas, re-verification |
+| System designer | GPT-6.1 Sol High | Existing architecture and reuse candidates, interfaces, impact, work boundaries, verification plan, precise developer instructions |
+| GUI designer | GPT-6.1 Sol High | For UI work, review WinForms screens, designer editing, options, and events; for headless libraries, review public API usability without inventing UI deliverables and mark UI checks not applicable |
+| Software developer | GPT-6.1 Sol High | Reuse-first implementation, builds and runtime evidence, blockers and results |
+| Program review and verification QC | GPT-6.1 Sol High | Independent review against criteria, reproducible defects and unverified areas, re-verification |
 
 In multiagent mode, follow this sequence:
 
@@ -41,6 +41,8 @@ In multiagent mode, follow this sequence:
 - Use only APIs available for the target framework and language version. Explain impacts on existing public APIs, serialized formats, and native ABI before changing them. Where nullable analysis is enabled, express nullability in types and fix warning causes. Use `!` or warning suppressions only for proven local exceptions and explain why in an ordinary comment.
 - Define ownership and cleanup for owned `IDisposable`/`IAsyncDisposable` objects, event subscriptions, timers, streams, camera/native handles. Do not dispose borrowed shared objects without an ownership contract. Validate external input and SDK results at boundaries; do not swallow exceptions or leave empty `catch` blocks. Use the project's existing user-message and diagnostic-logging patterns appropriately.
 - When a library needs asynchronous APIs, use `Task`/`Task<T>` and appropriate `CancellationToken` support; define error and cancellation behavior. Do not indiscriminately wrap a library's synchronous API in `Task.Run`. Define ownership and synchronization of shared mutable state and document thread-safety assumptions for exposed APIs.
+- When adding or changing an asynchronous operation API, also implement its synchronous counterpart whenever supported SDK/framework APIs or a reusable synchronous core allow a safe equivalent implementation. For example, pair `Task<bool> ExecuteAsync(...)` with `bool Execute(...)` when feasible. Reuse validation and core logic where practical, preserve equivalent results, errors, side effects and resource ownership, and honor applicable cancellation/timeout behavior. Verify both execution paths.
+- Do not manufacture a synchronous counterpart by blocking an async-only implementation with `.Result`, `.Wait()`, or `.GetAwaiter().GetResult()`, or by violating SDK threading/lifetime constraints. If an equivalent synchronous operation is unsupported or unsafe, keep the async-only API and explain the concrete reason in the completion report. Do not add unnecessary async wrappers around synchronous-only work just to create a pair.
 - Use `async void` only for event handlers. Observe asynchronous exceptions and avoid deadlocks caused by synchronous waits.
 
 ## For WinForms UI work only: Visual Studio designer contract
